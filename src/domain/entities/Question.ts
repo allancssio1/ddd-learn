@@ -18,6 +18,7 @@ export class Question extends Entity<QuestionProps> {
   get title() {
     return this.props.title
   }
+
   set title(title: string) {
     this.props.title = title
     this.props.slug = Slug.createFromText(title)
@@ -27,6 +28,7 @@ export class Question extends Entity<QuestionProps> {
   get content() {
     return this.props.content
   }
+
   set content(content: string) {
     this.content = content
     this.touch()
@@ -35,6 +37,7 @@ export class Question extends Entity<QuestionProps> {
   get bestAnswerId() {
     return this.props.bestAnswerId
   }
+
   set bestAnswerId(bestAnswerId: UniqueEntityId | undefined) {
     this.props.bestAnswerId = bestAnswerId
     this.touch()

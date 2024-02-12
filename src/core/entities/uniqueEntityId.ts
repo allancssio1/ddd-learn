@@ -10,6 +10,7 @@ export class UniqueEntityId {
   toString() {
     return this.value
   }
+
   toValue() {
     return this.value
   }

@@ -14,6 +14,7 @@ export class Answer extends Entity<AnswerProps> {
   get content() {
     return this.props.content
   }
+
   set content(content: string) {
     this.props.content = content
     this.touch()

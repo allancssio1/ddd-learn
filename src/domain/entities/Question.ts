@@ -1,7 +1,7 @@
 import { Slug } from './valueObjects/Slug'
-import { Entity } from '../../core/entities/entity'
-import { UniqueEntityId } from '../../core/entities/uniqueEntityId'
-import { Optional } from '../../core/types/optional'
+import { Entity } from '@/core/entities/entity'
+import { UniqueEntityId } from '@/core/entities/uniqueEntityId'
+import { Optional } from '@/core/types/optional'
 import dayjs from 'dayjs'
 
 interface QuestionProps {

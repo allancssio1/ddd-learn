@@ -1,5 +1,5 @@
 import { test, expect, describe, beforeEach } from 'vitest'
-import { AnswerQuestionUseCase } from './AnswerQuestion'
+import { AnswerQuestionUseCase } from '../../../../../src/domain/forum/application/useCases/AnswerQuestion'
 import { AnswersRepositoryInMemory } from '../../../../repositories/answers-repository-in-memory'
 
 describe('Create a Answer Question', () => {

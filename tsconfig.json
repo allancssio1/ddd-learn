@@ -11,11 +11,11 @@
     "module": "commonJS",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@/*": ["./src/*"],
-    //   "#/*": ["tests/*"]
-    // },
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "#/*": ["tests/*"]
+    },
     "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

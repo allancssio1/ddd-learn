@@ -1,9 +1,7 @@
 import { test, expect, describe, beforeEach } from 'vitest'
 import { GetQuestionBySlugUseCase } from '@/domain/forum/application/useCases/GetQuestionBySlug'
 import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
-import { UniqueEntityId } from '@/core/entities/uniqueEntityId'
-import { Question } from '@/domain/forum/enterprise/entities/Question'
-import { Slug } from '@/domain/forum/enterprise/entities/valueObjects/Slug'
+import { makeQuestion } from '#/factories/make-question'
 
 describe('Get Question By Slug', () => {
   let questionsRepository: QuestionsRepositoryInMemory
@@ -12,12 +10,7 @@ describe('Get Question By Slug', () => {
   beforeEach(() => {
     questionsRepository = new QuestionsRepositoryInMemory()
     sut = new GetQuestionBySlugUseCase(questionsRepository)
-    const newQuestion = Question.create({
-      authorId: new UniqueEntityId('id-1'),
-      title: 'new Question',
-      content: 'Nova resposta',
-      slug: Slug.create('new-question'),
-    })
+    const newQuestion = makeQuestion({ title: 'New Question' })
 
     questionsRepository.create(newQuestion)
   })
@@ -25,6 +18,6 @@ describe('Get Question By Slug', () => {
     const { question } = await sut.execute({ slug: 'new-question' })
 
     expect(question.id).toBeTruthy()
-    expect(question.title).toEqual('new Question')
+    expect(question.title).toEqual('New Question')
   })
 })

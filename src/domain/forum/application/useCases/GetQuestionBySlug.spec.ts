@@ -1,9 +1,9 @@
 import { test, expect, describe, beforeEach } from 'vitest'
-import { GetQuestionBySlugUseCase } from '../../../../../src/domain/forum/application/useCases/GetQuestionBySlug'
-import { QuestionsRepositoryInMemory } from '../../../../repositories/questions-repository-in-memory'
-import { UniqueEntityId } from '../../../../../src/core/entities/uniqueEntityId'
-import { Question } from '../../../../../src/domain/forum/enterprise/entities/Question'
-import { Slug } from '../../../../../src/domain/forum/enterprise/entities/valueObjects/Slug'
+import { GetQuestionBySlugUseCase } from '@/domain/forum/application/useCases/GetQuestionBySlug'
+import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
+import { UniqueEntityId } from '@/core/entities/uniqueEntityId'
+import { Question } from '@/domain/forum/enterprise/entities/Question'
+import { Slug } from '@/domain/forum/enterprise/entities/valueObjects/Slug'
 
 describe('Get Question By Slug', () => {
   let questionsRepository: QuestionsRepositoryInMemory

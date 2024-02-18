@@ -1,7 +1,7 @@
 import { test, expect, describe, beforeEach } from 'vitest'
-import { GetQuestionBySlugUseCase } from '@/domain/forum/application/useCases/GetQuestionBySlug'
 import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
 import { makeQuestion } from '#/factories/make-question'
+import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 
 describe('Get Question By Slug', () => {
   let questionsRepository: QuestionsRepositoryInMemory

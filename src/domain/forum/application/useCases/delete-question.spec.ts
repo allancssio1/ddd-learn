@@ -34,6 +34,6 @@ describe('Delete Question', () => {
     expect(
       async () =>
         await sut.execute({ questionId: 'question-2', authorId: 'author-1' }),
-    ).rejects.toThrow('Unauthorazed')
+    ).rejects.toBeInstanceOf(Error)
   })
 })

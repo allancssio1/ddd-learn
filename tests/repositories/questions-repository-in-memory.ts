@@ -28,4 +28,10 @@ export class QuestionsRepositoryInMemory implements QuestionsRepsitory {
     )
     return question ?? null
   }
+
+  async save(question: Question) {
+    const itemIndex = this.items.findIndex((item) => item.id === question.id)
+
+    this.items[itemIndex] = question
+  }
 }

@@ -1,3 +1,4 @@
+import { Question } from '../../enterprise/entities/Question'
 import { QuestionsRepsitory } from '../repositories/questions-repository'
 
 interface EditQuestionUseCaseProps {
@@ -5,6 +6,10 @@ interface EditQuestionUseCaseProps {
   questionId: string
   title: string
   content: string
+}
+
+interface EditQuestionUseCaseResponse {
+  question: Question
 }
 export class EditQuestionUseCase {
   constructor(private questionRepository: QuestionsRepsitory) {}
@@ -14,17 +19,19 @@ export class EditQuestionUseCase {
     title,
     content,
     questionId,
-  }: EditQuestionUseCaseProps): Promise<void> {
-    const quesiton = await this.questionRepository.findById(questionId)
+  }: EditQuestionUseCaseProps): Promise<EditQuestionUseCaseResponse> {
+    const question = await this.questionRepository.findById(questionId)
 
-    if (!quesiton) throw new Error('question not found')
+    if (!question) throw new Error('question not found')
 
-    if (quesiton.authorId.toString() !== authorId)
+    if (question.authorId.toString() !== authorId)
       throw new Error('Not allowed')
 
-    quesiton.title = title
-    quesiton.content = content
+    question.title = title
+    question.content = content
 
-    await this.questionRepository.save(quesiton)
+    await this.questionRepository.save(question)
+
+    return { question }
   }
 }

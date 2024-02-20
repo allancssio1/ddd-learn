@@ -1,9 +1,14 @@
+import { Answer } from '../../enterprise/entities/Answer'
 import { AnswerRepository } from '../repositories/answer-repository'
 
 interface EditAnswerUseCaseProps {
   authorId: string
   answerId: string
   content: string
+}
+
+interface EditAnswerUseCaseResponse {
+  answer: Answer
 }
 export class EditAnswerUseCase {
   constructor(private answerRepository: AnswerRepository) {}
@@ -12,16 +17,17 @@ export class EditAnswerUseCase {
     authorId,
     content,
     answerId,
-  }: EditAnswerUseCaseProps): Promise<void> {
-    const quesiton = await this.answerRepository.findById(answerId)
+  }: EditAnswerUseCaseProps): Promise<EditAnswerUseCaseResponse> {
+    const answer = await this.answerRepository.findById(answerId)
 
-    if (!quesiton) throw new Error('answer not found')
+    if (!answer) throw new Error('answer not found')
 
-    if (quesiton.authorId.toString() !== authorId)
-      throw new Error('Not allowed')
+    if (answer.authorId.toString() !== authorId) throw new Error('Not allowed')
 
-    quesiton.content = content
+    answer.content = content
 
-    await this.answerRepository.save(quesiton)
+    await this.answerRepository.save(answer)
+
+    return { answer }
   }
 }

@@ -7,7 +7,7 @@ import { makeAnswer } from '#/factories/make-answer'
 import { Question } from '../../enterprise/entities/Question'
 import { Answer } from '../../enterprise/entities/Answer'
 
-describe('Create a Answer Question', () => {
+describe('Choose Question Best Answer', () => {
   let answersRepository: AnswersRepositoryInMemory
   let questionRepository: QuestionsRepositoryInMemory
   let sut: ChooseQuestionBestAnswerUseCase

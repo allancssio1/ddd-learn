@@ -5,7 +5,7 @@ export interface CommentProps {
   authorId: UniqueEntityId
   content: string
   createdAt: Date
-  updatedAt: Date
+  updatedAt?: Date
 }
 /**
  * Comment<> => utilizando um generic do typescript

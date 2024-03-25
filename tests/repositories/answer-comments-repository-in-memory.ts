@@ -11,37 +11,38 @@ export class AnswerCommentsRepositoryInMemory
     return answerComment
   }
 
+  async delete(answercomments: AnswerComment) {
+    const itemIndex = this.items.findIndex(
+      (item) => item.id === answercomments.id,
+    )
+
+    await this.items.splice(itemIndex, 1)
+  }
+
+  async findById(answercommentsId: string) {
+    const answercomments = await this.items.find(
+      (item) => item.id.toValue() === answercommentsId,
+    )
+    return answercomments ?? null
+  }
+
   // async findBySlug(slug: string) {
-  //   const answer = await this.items.find((item) => item.slug.value === slug)
+  //   const answercomments = await this.items.find((item) => item.slug.value === slug)
 
-  //   if (!answer) return null
+  //   if (!answercomments) return null
 
-  //   return answer
+  //   return answercomments
   // }
-
-  // async delete(answer: Answer) {
-  //   const itemIndex = this.items.findIndex((item) => item.id === answer.id)
-
-  //   await this.items.splice(itemIndex, 1)
-  // }
-
-  // async findById(answerId: string) {
-  //   const answer = await this.items.find(
-  //     (item) => item.id.toValue() === answerId,
-  //   )
-  //   return answer ?? null
-  // }
-
   // async findManyRecents({ page }: PaginationParams) {
-  //   const answers = await this.items
+  //   const answercommentss = await this.items
   //     .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
   //     .slice((page - 1) * 20, page * 20)
-  //   return answers
+  //   return answercommentss
   // }
 
-  // async save(answer: Answer) {
-  //   const itemIndex = this.items.findIndex((item) => item.id === answer.id)
+  // async save(answercomments: AnswerComments) {
+  //   const itemIndex = this.items.findIndex((item) => item.id === answercomments.id)
 
-  //   this.items[itemIndex] = answer
+  //   this.items[itemIndex] = answercomments
   // }
 }

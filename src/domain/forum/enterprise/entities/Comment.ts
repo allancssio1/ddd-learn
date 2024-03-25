@@ -20,6 +20,10 @@ export abstract class Comment<
     return this.props.content
   }
 
+  public get authorId() {
+    return this.props.authorId
+  }
+
   public set content(content: string) {
     this.props.content = content
     this.touch()

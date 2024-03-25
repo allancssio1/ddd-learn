@@ -19,18 +19,20 @@ export class QuestionCommentsRepositoryInMemory
   //   return question
   // }
 
-  // async delete(question: Question) {
-  //   const itemIndex = this.items.findIndex((item) => item.id === question.id)
+  async delete(questionComment: QuestionComment) {
+    const itemIndex = this.items.findIndex(
+      (item) => item.id === questionComment.id,
+    )
 
-  //   await this.items.splice(itemIndex, 1)
-  // }
+    await this.items.splice(itemIndex, 1)
+  }
 
-  // async findById(questionId: string) {
-  //   const question = await this.items.find(
-  //     (item) => item.id.toValue() === questionId,
-  //   )
-  //   return question ?? null
-  // }
+  async findById(questionId: string) {
+    const question = await this.items.find(
+      (item) => item.id.toValue() === questionId,
+    )
+    return question ?? null
+  }
 
   // async findManyRecents({ page }: PaginationParams) {
   //   const questions = await this.items

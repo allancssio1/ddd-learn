@@ -5,7 +5,7 @@ import {
   QuestionCommentProps,
 } from '@/domain/forum/enterprise/entities/QuestionComment'
 
-export function makeQuestion(
+export function makeQuestionComment(
   override: Partial<QuestionCommentProps> = {},
   id?: UniqueEntityId,
 ) {

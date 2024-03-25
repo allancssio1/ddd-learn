@@ -1,4 +1,5 @@
 // import { PaginationParams } from '@/core/repositories/pagination-params'
+import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswerCommentRepository } from '../domain/forum/application/repositories/answer-comments-repository'
 import { AnswerComment } from '../domain/forum/enterprise/entities/AnswerComment'
 
@@ -11,19 +12,27 @@ export class AnswerCommentsRepositoryInMemory
     return answerComment
   }
 
-  async delete(answercomments: AnswerComment) {
+  async delete(answerComments: AnswerComment) {
     const itemIndex = this.items.findIndex(
-      (item) => item.id === answercomments.id,
+      (item) => item.id === answerComments.id,
     )
 
     await this.items.splice(itemIndex, 1)
   }
 
-  async findById(answercommentsId: string) {
+  async findById(answerCommentsId: string) {
     const answercomments = await this.items.find(
-      (item) => item.id.toValue() === answercommentsId,
+      (item) => item.id.toValue() === answerCommentsId,
     )
     return answercomments ?? null
+  }
+
+  async findManyByAnswerId(answerId: string, { page }: PaginationParams) {
+    const answerComments = await this.items
+      .filter((item) => item.answerId.toString() === answerId)
+      .slice((page - 1) * 20, page * 20)
+
+    return answerComments
   }
 
   // async findBySlug(slug: string) {

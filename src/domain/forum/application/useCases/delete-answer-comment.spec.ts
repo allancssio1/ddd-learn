@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { AnswerCommentsRepositoryInMemory } from '#/repositories/answer-comments-repository-in-memory'
-import { makeAnswer } from '#/factories/make-answer-comment'
+import { makeAnswerComment } from '#/factories/make-answer-comment'
 import { DeleteAnswerCommentUseCase } from './delete-answer-comment'
 import { AnswerComment } from '../../enterprise/entities/AnswerComment'
 
@@ -13,7 +13,7 @@ describe('Delete Answer Comment', () => {
     answercommentsRepository = new AnswerCommentsRepositoryInMemory()
     sut = new DeleteAnswerCommentUseCase(answercommentsRepository)
 
-    newAnswerComment = makeAnswer()
+    newAnswerComment = makeAnswerComment()
     answercommentsRepository.create(newAnswerComment)
   })
   test('Should be able delete a answer comment', async () => {

@@ -1,3 +1,4 @@
+import { PaginationParams } from '@/core/repositories/pagination-params'
 import { QuestionComment } from '../../enterprise/entities/QuestionComment'
 
 export interface QuestionCommentsRepsitory {
@@ -5,6 +6,9 @@ export interface QuestionCommentsRepsitory {
   delete(questioncomment: QuestionComment): Promise<void>
   // save(questioncomment: QuestionComment): Promise<void>
   // findBySlug(slug: string): Promise<QuestionComment | null>
-  // findManyRecents({ page }: PaginationParams): Promise<QuestionComment[] | []>
+  findManyByQuestionId(
+    questionId: string,
+    { page }: PaginationParams,
+  ): Promise<QuestionComment[] | []>
   findById(id: string): Promise<QuestionComment | null>
 }

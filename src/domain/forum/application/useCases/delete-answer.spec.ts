@@ -25,15 +25,22 @@ describe('Delete Answer', () => {
     answersRepository.create(newAnswer)
   })
   test('Should be able delete a answer', async () => {
-    await sut.execute({ answerId: 'answer-2', authorId: 'author-2' })
+    const res = await sut.execute({
+      answerId: 'answer-2',
+      authorId: 'author-2',
+    })
 
-    expect(answersRepository.items).toHaveLength(1)
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
     expect(answersRepository.items[0].id.toValue()).toEqual('answer-1')
   })
   test('Should not be  able delete a answer from another user', async () => {
-    expect(
-      async () =>
-        await sut.execute({ answerId: 'answer-2', authorId: 'author-1' }),
-    ).rejects.toThrow('Unauthorazed')
+    const res = await sut.execute({
+      answerId: 'answer-2',
+      authorId: 'author-1',
+    })
+
+    expect(res.isRight()).toBe(false)
+    expect(res.isLeft()).toBe(true)
   })
 })

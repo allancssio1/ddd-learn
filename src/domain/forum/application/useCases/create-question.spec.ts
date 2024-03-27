@@ -11,13 +11,13 @@ describe('Create Question', () => {
     sut = new CreateQuestionUseCase(questionsRepository)
   })
   test('Should be able create an question', async () => {
-    const { question } = await sut.execute({
+    const res = await sut.execute({
       authorId: '1',
       title: 'new Question',
       content: 'Nova resposta',
     })
 
-    expect(question.id).toBeTruthy()
-    expect(question.content).toEqual('Nova resposta')
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
   })
 })

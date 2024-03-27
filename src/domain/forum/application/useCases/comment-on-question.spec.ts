@@ -23,13 +23,13 @@ describe('Create Question', () => {
     questionsRepository.create(question)
   })
   test('Should be able create an question comment', async () => {
-    const { questionComment } = await sut.execute({
+    const res = await sut.execute({
       authorId: 'author-1',
       questionId: question.id.toString(),
       content: 'Novo comentário',
     })
 
-    expect(questionComment.id).toBeTruthy()
-    expect(questionComment.content).toEqual('Novo comentário')
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
   })
 })

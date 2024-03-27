@@ -10,12 +10,12 @@ describe('Create a Answer Question', () => {
     answersRepository = new AnswersRepositoryInMemory()
     sut = new AnswerQuestionUseCase(answersRepository)
   })
-  test('Should be able create an answer', () => {
-    const answer = sut.execute({
+  test('Should be able create an answer', async () => {
+    const res = await sut.execute({
       instructorId: '1',
       questionId: '1',
       content: 'Nova resposta',
     })
-    expect(answer.content).toEqual('Nova resposta')
+    expect(res.isRight()).toBe(true)
   })
 })

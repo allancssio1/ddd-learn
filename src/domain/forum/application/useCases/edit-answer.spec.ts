@@ -18,24 +18,26 @@ describe('Edit Answer', () => {
     answersRepository.create(newAnswer)
   })
   test('Should be able edit a answer', async () => {
-    await sut.execute({
+    const res = await sut.execute({
       answerId: newAnswer.id.toString(),
       authorId: 'author-2',
       content: 'new Content',
     })
 
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
     expect(answersRepository.items[0]).toMatchObject({
       content: 'new Content',
     })
   })
   test('Should not be  able edit a answer from another user', async () => {
-    expect(
-      async () =>
-        await sut.execute({
-          answerId: 'answer-2',
-          authorId: 'author-1',
-          content: 'new Content',
-        }),
-    ).rejects.toBeInstanceOf(Error)
+    const res = await sut.execute({
+      answerId: newAnswer.id.toString(),
+      authorId: 'author-1',
+      content: 'new Content',
+    })
+
+    expect(res.isRight()).toBe(false)
+    expect(res.isLeft()).toBe(true)
   })
 })

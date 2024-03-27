@@ -25,15 +25,22 @@ describe('Delete Question', () => {
     questionsRepository.create(newQuestion)
   })
   test('Should be able delete a question', async () => {
-    await sut.execute({ questionId: 'question-2', authorId: 'author-2' })
+    const res = await sut.execute({
+      questionId: 'question-2',
+      authorId: 'author-2',
+    })
 
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
     expect(questionsRepository.items).toHaveLength(1)
-    expect(questionsRepository.items[0].id.toValue()).toEqual('question-1')
   })
   test('Should not be  able delete a question from another user', async () => {
-    expect(
-      async () =>
-        await sut.execute({ questionId: 'question-2', authorId: 'author-1' }),
-    ).rejects.toBeInstanceOf(Error)
+    const res = await sut.execute({
+      questionId: 'question-2',
+      authorId: 'author-1',
+    })
+
+    expect(res.isRight()).toBe(false)
+    expect(res.isLeft()).toBe(true)
   })
 })

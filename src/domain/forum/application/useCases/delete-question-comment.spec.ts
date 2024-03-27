@@ -17,20 +17,22 @@ describe('Delete Question Comment', () => {
     questioncommentsRepository.create(newQuestionComment)
   })
   test('Should be able delete a question comment', async () => {
-    await sut.execute({
+    const res = await sut.execute({
       authorId: newQuestionComment.authorId.toString(),
       questionCommentId: newQuestionComment.id.toString(),
     })
 
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
     expect(questioncommentsRepository.items).toHaveLength(0)
   })
   test('Should not be  able delete a question comment from another user', async () => {
-    expect(
-      async () =>
-        await sut.execute({
-          authorId: 'Wrong author',
-          questionCommentId: newQuestionComment.id.toString(),
-        }),
-    ).rejects.toBeInstanceOf(Error)
+    const res = await sut.execute({
+      authorId: 'author wrong',
+      questionCommentId: newQuestionComment.id.toString(),
+    })
+
+    expect(res.isRight()).toBe(false)
+    expect(res.isLeft()).toBe(true)
   })
 })

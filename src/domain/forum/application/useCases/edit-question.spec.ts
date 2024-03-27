@@ -18,12 +18,15 @@ describe('Edit Question', () => {
     questionsRepository.create(newQuestion)
   })
   test('Should be able edit a question', async () => {
-    await sut.execute({
+    const res = await sut.execute({
       questionId: newQuestion.id.toString(),
       authorId: 'author-2',
       content: 'new Content',
       title: 'new title',
     })
+
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
 
     expect(questionsRepository.items[0]).toMatchObject({
       content: 'new Content',
@@ -31,14 +34,14 @@ describe('Edit Question', () => {
     })
   })
   test('Should not be  able edit a question from another user', async () => {
-    expect(
-      async () =>
-        await sut.execute({
-          questionId: 'question-2',
-          authorId: 'author-1',
-          content: 'new Content',
-          title: 'new title',
-        }),
-    ).rejects.toBeInstanceOf(Error)
+    const res = await sut.execute({
+      questionId: newQuestion.id.toString(),
+      authorId: 'author-1',
+      content: 'new Content',
+      title: 'new title',
+    })
+
+    expect(res.isRight()).toBe(false)
+    expect(res.isLeft()).toBe(true)
   })
 })

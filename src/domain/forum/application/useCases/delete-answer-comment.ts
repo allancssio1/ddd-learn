@@ -1,25 +1,34 @@
-import { AnswerCommentsRepsitory } from '../repositories/answer-comments-repository'
+import { Either, left, right } from '@/core/Either'
+import { AnswerCommentRepository } from '../repositories/answer-comments-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found'
+import { UnauthorazedError } from './errors/unauthorazed'
 
 interface DeleteAnswerCommentUseCaseRequest {
   authorId: string
   answerCommentId: string
 }
 
+type DeleteAnswerCommentUseCaseResponse = Either<
+  ResourceNotFoundError | UnauthorazedError,
+  null
+>
+
 export class DeleteAnswerCommentUseCase {
-  constructor(private answerCommentRepository: AnswerCommentsRepsitory) {}
+  constructor(private answerCommentRepository: AnswerCommentRepository) {}
 
   async execute({
     authorId,
     answerCommentId,
-  }: DeleteAnswerCommentUseCaseRequest): Promise<void> {
+  }: DeleteAnswerCommentUseCaseRequest): Promise<DeleteAnswerCommentUseCaseResponse> {
     const answerComment =
       await this.answerCommentRepository.findById(answerCommentId)
 
-    if (!answerComment) throw new Error('answer comment not found')
+    if (!answerComment) return left(new ResourceNotFoundError())
 
     if (answerComment.authorId.toString() !== authorId)
-      throw new Error('Unauthorazed')
+      return left(new UnauthorazedError())
 
     await this.answerCommentRepository.delete(answerComment)
+    return right(null)
   }
 }

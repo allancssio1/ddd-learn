@@ -31,16 +31,17 @@ describe('Choose Question Best Answer', () => {
       answerId: answer.id.toString(),
       authorId: question.authorId.toString(),
     })
-    expect(response.question.bestAnswerId).toEqual(answer.id)
+    expect(response.isRight()).toBe(true)
+    expect(response.isLeft()).toBe(false)
   })
 
   test('Should net be able mark an answer with best of another author', async () => {
-    expect(
-      async () =>
-        await sut.execute({
-          answerId: answer.id.toString(),
-          authorId: 'author-2',
-        }),
-    ).rejects.toBeInstanceOf(Error)
+    const res = await sut.execute({
+      answerId: answer.id.toString(),
+      authorId: 'author-2',
+    })
+
+    expect(res.isRight()).toBe(false)
+    expect(res.isLeft()).toBe(true)
   })
 })

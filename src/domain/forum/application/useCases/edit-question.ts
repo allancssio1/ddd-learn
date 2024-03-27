@@ -1,5 +1,8 @@
+import { Either, left, right } from '@/core/Either'
 import { Question } from '../../enterprise/entities/Question'
 import { QuestionsRepsitory } from '../repositories/questions-repository'
+import { ResourceNotFoundError } from './errors/resource-not-found'
+import { UnauthorazedError } from './errors/unauthorazed'
 
 interface EditQuestionUseCaseProps {
   authorId: string
@@ -8,9 +11,12 @@ interface EditQuestionUseCaseProps {
   content: string
 }
 
-interface EditQuestionUseCaseResponse {
-  question: Question
-}
+type EditQuestionUseCaseResponse = Either<
+  ResourceNotFoundError | UnauthorazedError,
+  {
+    question: Question
+  }
+>
 export class EditQuestionUseCase {
   constructor(private questionRepository: QuestionsRepsitory) {}
 
@@ -22,16 +28,16 @@ export class EditQuestionUseCase {
   }: EditQuestionUseCaseProps): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionRepository.findById(questionId)
 
-    if (!question) throw new Error('question not found')
+    if (!question) return left(new ResourceNotFoundError())
 
     if (question.authorId.toString() !== authorId)
-      throw new Error('Not allowed')
+      return left(new UnauthorazedError())
 
     question.title = title
     question.content = content
 
     await this.questionRepository.save(question)
 
-    return { question }
+    return right({ question })
   }
 }

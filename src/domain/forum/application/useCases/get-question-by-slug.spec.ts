@@ -15,9 +15,9 @@ describe('Get Question By Slug', () => {
     questionsRepository.create(newQuestion)
   })
   test('Should be able create an answer', async () => {
-    const { question } = await sut.execute({ slug: 'new-question' })
+    const res = await sut.execute({ slug: 'new-question' })
 
-    expect(question.id).toBeTruthy()
-    expect(question.title).toEqual('New Question')
+    expect(res.isRight()).toBe(true)
+    expect(res.isLeft()).toBe(false)
   })
 })

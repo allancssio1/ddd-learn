@@ -1,6 +1,7 @@
 import { test, expect, describe, beforeEach } from 'vitest'
 import { CreateQuestionUseCase } from '@/domain/forum/application/useCases/create-question'
 import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
+import { UniqueEntityId } from '@/core/entities/uniqueEntityId'
 
 describe('Create Question', () => {
   let questionsRepository: QuestionsRepositoryInMemory
@@ -15,9 +16,15 @@ describe('Create Question', () => {
       authorId: '1',
       title: 'new Question',
       content: 'Nova resposta',
+      attachmentsIds: ['1', '2'],
     })
 
     expect(res.isRight()).toBe(true)
     expect(res.isLeft()).toBe(false)
+    expect(questionsRepository.items[0].attachments).toHaveLength(2)
+    expect(questionsRepository.items[0].attachments).toEqual([
+      expect.objectContaining({ attachmentId: new UniqueEntityId('1') }),
+      expect.objectContaining({ attachmentId: new UniqueEntityId('2') }),
+    ])
   })
 })

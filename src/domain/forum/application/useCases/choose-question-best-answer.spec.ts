@@ -6,9 +6,11 @@ import { makeQuestion } from '#/factories/make-question'
 import { makeAnswer } from '#/factories/make-answer'
 import { Question } from '../../enterprise/entities/Question'
 import { Answer } from '../../enterprise/entities/Answer'
+import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
 
 describe('Choose Question Best Answer', () => {
   let answersRepository: AnswersRepositoryInMemory
+  let questionAttachmentRepository: QuestionAttachmentsRepositoryInMemory
   let questionRepository: QuestionsRepositoryInMemory
   let sut: ChooseQuestionBestAnswerUseCase
   let question: Question
@@ -16,7 +18,10 @@ describe('Choose Question Best Answer', () => {
 
   beforeEach(() => {
     answersRepository = new AnswersRepositoryInMemory()
-    questionRepository = new QuestionsRepositoryInMemory()
+    questionAttachmentRepository = new QuestionAttachmentsRepositoryInMemory()
+    questionRepository = new QuestionsRepositoryInMemory(
+      questionAttachmentRepository,
+    )
     sut = new ChooseQuestionBestAnswerUseCase(
       answersRepository,
       questionRepository,

@@ -14,4 +14,12 @@ export class QuestionAttachmentsRepositoryInMemory
 
     return questionAttachments
   }
+
+  async deleteByQuestionId(questionId: string) {
+    const questionAttachments = await this.items.filter(
+      (item) => item.questionId.toString() !== questionId,
+    )
+
+    this.items = questionAttachments
+  }
 }

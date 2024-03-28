@@ -4,15 +4,21 @@ import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository
 import { QuestionCommentsRepositoryInMemory } from '#/repositories/questions-comments-repository-in-memory'
 import { makeQuestion } from '#/factories/make-question'
 import { Question } from '../../enterprise/entities/Question'
+import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
 
 describe('Create Question', () => {
   let questionsRepository: QuestionsRepositoryInMemory
+  let questionAttachmentsRepositoryInMemory: QuestionAttachmentsRepositoryInMemory
   let questionCommentsRepository: QuestionCommentsRepositoryInMemory
   let sut: CommentOnQuestionUseCase
   let question: Question
 
   beforeEach(() => {
-    questionsRepository = new QuestionsRepositoryInMemory()
+    questionAttachmentsRepositoryInMemory =
+      new QuestionAttachmentsRepositoryInMemory()
+    questionsRepository = new QuestionsRepositoryInMemory(
+      questionAttachmentsRepositoryInMemory,
+    )
     questionCommentsRepository = new QuestionCommentsRepositoryInMemory()
     sut = new CommentOnQuestionUseCase(
       questionsRepository,

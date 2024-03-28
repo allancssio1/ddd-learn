@@ -2,13 +2,18 @@ import { test, expect, describe, beforeEach } from 'vitest'
 import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
 import { makeQuestion } from '#/factories/make-question'
 import { FetchRecentQuestionsUseCase } from './fetch-recent-questions'
+import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
 
 describe('Fetch Questions Recents', () => {
   let questionsRepository: QuestionsRepositoryInMemory
+  let questionAttachmentsRepository: QuestionAttachmentsRepositoryInMemory
   let sut: FetchRecentQuestionsUseCase
 
   beforeEach(async () => {
-    questionsRepository = new QuestionsRepositoryInMemory()
+    questionAttachmentsRepository = new QuestionAttachmentsRepositoryInMemory()
+    questionsRepository = new QuestionsRepositoryInMemory(
+      questionAttachmentsRepository,
+    )
     sut = new FetchRecentQuestionsUseCase(questionsRepository)
   })
   test('Should be able fetch question recents ordenate by createdAt', async () => {

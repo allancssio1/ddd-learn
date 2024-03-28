@@ -17,8 +17,10 @@ describe('Edit Question', () => {
   // let newQuestionAttachment: QuestionAttachment
 
   beforeEach(() => {
-    questionsRepository = new QuestionsRepositoryInMemory()
     questionAttachmentsRepository = new QuestionAttachmentsRepositoryInMemory()
+    questionsRepository = new QuestionsRepositoryInMemory(
+      questionAttachmentsRepository,
+    )
     sut = new EditQuestionUseCase(
       questionsRepository,
       questionAttachmentsRepository,

@@ -2,13 +2,18 @@ import { test, expect, describe, beforeEach } from 'vitest'
 import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
 import { makeQuestion } from '#/factories/make-question'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
+import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
 
 describe('Get Question By Slug', () => {
   let questionsRepository: QuestionsRepositoryInMemory
+  let questionAttachmentsRepository: QuestionAttachmentsRepositoryInMemory
   let sut: GetQuestionBySlugUseCase
 
   beforeEach(() => {
-    questionsRepository = new QuestionsRepositoryInMemory()
+    questionAttachmentsRepository = new QuestionAttachmentsRepositoryInMemory()
+    questionsRepository = new QuestionsRepositoryInMemory(
+      questionAttachmentsRepository,
+    )
     sut = new GetQuestionBySlugUseCase(questionsRepository)
     const newQuestion = makeQuestion({ title: 'New Question' })
 

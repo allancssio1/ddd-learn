@@ -3,7 +3,7 @@ import { Question } from '../../enterprise/entities/Question'
 import { QuestionsRepsitory } from '../repositories/questions-repository'
 import { Either, right } from '@/core/Either'
 import { QuestionAttachment } from '../../enterprise/entities/QuestionAttachment'
-import { QuestionAttachmentList } from '../../enterprise/entities/question-attachment-list'
+import { QuestionAttachmentList } from '../../enterprise/entities/QuestionAttachmentList'
 
 interface CreateQuestionUseCaseRequest {
   authorId: string

@@ -4,7 +4,7 @@ import { Slug } from './valueObjects/Slug'
 import dayjs from 'dayjs'
 import { Optional } from '@/core/types/optional'
 import { AggregateRoot } from '@/core/entities/aggregate-root'
-import { QuestionAttachmentList } from './question-attachment-list'
+import { QuestionAttachmentList } from './QuestionAttachmentList'
 
 export interface QuestionProps {
   authorId: UniqueEntityId

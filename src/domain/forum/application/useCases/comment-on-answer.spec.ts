@@ -4,15 +4,20 @@ import { AnswersRepositoryInMemory } from '#/repositories/answers-repository-in-
 import { AnswerCommentsRepositoryInMemory } from '#/repositories/answer-comments-repository-in-memory'
 import { makeAnswer } from '#/factories/make-answer'
 import { Answer } from '../../enterprise/entities/Answer'
+import { AnswerAttachmentsRepositoryInMemory } from '#/repositories/answers-attachments-repository-in-memory'
 
 describe('Create Answer', () => {
   let answersRepository: AnswersRepositoryInMemory
+  let answerAttachementRepository: AnswerAttachmentsRepositoryInMemory
   let answerCommentsRepository: AnswerCommentsRepositoryInMemory
   let sut: CommentOnAnswerUseCase
   let answer: Answer
 
   beforeEach(() => {
-    answersRepository = new AnswersRepositoryInMemory()
+    answerAttachementRepository = new AnswerAttachmentsRepositoryInMemory()
+    answersRepository = new AnswersRepositoryInMemory(
+      answerAttachementRepository,
+    )
     answerCommentsRepository = new AnswerCommentsRepositoryInMemory()
     sut = new CommentOnAnswerUseCase(
       answersRepository,

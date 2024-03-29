@@ -14,8 +14,10 @@ describe('Edit Answer', () => {
   let newAnswer: Answer
 
   beforeEach(() => {
-    answersRepository = new AnswersRepositoryInMemory()
     answerAttachmentsRepository = new AnswerAttachmentsRepositoryInMemory()
+    answersRepository = new AnswersRepositoryInMemory(
+      answerAttachmentsRepository,
+    )
     sut = new EditAnswerUseCase(answersRepository, answerAttachmentsRepository)
 
     newAnswer = makeAnswer({ authorId: new UniqueEntityId('author-1') })

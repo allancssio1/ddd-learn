@@ -7,18 +7,23 @@ import { makeAnswer } from '#/factories/make-answer'
 import { Question } from '../../enterprise/entities/Question'
 import { Answer } from '../../enterprise/entities/Answer'
 import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
+import { AnswerAttachmentsRepositoryInMemory } from '#/repositories/answers-attachments-repository-in-memory'
 
 describe('Choose Question Best Answer', () => {
   let answersRepository: AnswersRepositoryInMemory
   let questionAttachmentRepository: QuestionAttachmentsRepositoryInMemory
+  let answerAttachmentRepository: AnswerAttachmentsRepositoryInMemory
   let questionRepository: QuestionsRepositoryInMemory
   let sut: ChooseQuestionBestAnswerUseCase
   let question: Question
   let answer: Answer
 
   beforeEach(() => {
-    answersRepository = new AnswersRepositoryInMemory()
     questionAttachmentRepository = new QuestionAttachmentsRepositoryInMemory()
+    answerAttachmentRepository = new AnswerAttachmentsRepositoryInMemory()
+    answersRepository = new AnswersRepositoryInMemory(
+      answerAttachmentRepository,
+    )
     questionRepository = new QuestionsRepositoryInMemory(
       questionAttachmentRepository,
     )

@@ -5,9 +5,8 @@ import { EditQuestionUseCase } from './edit-question'
 import { Question } from '../../enterprise/entities/Question'
 import { UniqueEntityId } from '@/core/entities/uniqueEntityId'
 import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
-// import { QuestionAttachment } from '../../enterprise/entities/QuestionAttachment'
 import { makeQuestionAttachment } from '#/factories/make-question-attachment'
-import { UnauthorazedError } from './errors/unauthorazed'
+import { UnauthorazedError } from '@/core/errors/errors/unauthorazed'
 
 describe('Edit Question', () => {
   let questionsRepository: QuestionsRepositoryInMemory

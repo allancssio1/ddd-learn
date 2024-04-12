@@ -3,7 +3,7 @@ import { AnswerCommentsRepositoryInMemory } from '#/repositories/answer-comments
 import { makeAnswerComment } from '#/factories/make-answer-comment'
 import { DeleteAnswerCommentUseCase } from './delete-answer-comment'
 import { AnswerComment } from '../../enterprise/entities/AnswerComment'
-import { UnauthorazedError } from './errors/unauthorazed'
+import { UnauthorazedError } from '@/core/errors/errors/unauthorazed'
 
 describe('Delete Answer Comment', () => {
   let answercommentsRepository: AnswerCommentsRepositoryInMemory

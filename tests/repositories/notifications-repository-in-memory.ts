@@ -9,4 +9,19 @@ export class NotificationsRepositoryInMemory
   async create(notification: Notification) {
     await this.items.push(notification)
   }
+
+  async findById(notificationId: string) {
+    const question = await this.items.find(
+      (item) => item.id.toValue() === notificationId,
+    )
+    return question ?? null
+  }
+
+  async save(notification: Notification) {
+    const itemIndex = this.items.findIndex(
+      (item) => item.id === notification.id,
+    )
+
+    this.items[itemIndex] = notification
+  }
 }

@@ -13,6 +13,7 @@ export abstract class Entity<Props> {
     return this._id
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   equals(entity: Entity<any>) {
     if (entity === this) return true
 

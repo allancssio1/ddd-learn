@@ -17,6 +17,7 @@
       "#/*": ["tests/*"]
     },
     "strict": true,
+    "types": ["vitest/globals"], 
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
   }

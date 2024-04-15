@@ -2,6 +2,7 @@ import { AnswerRepository } from '@/domain/forum/application/repositories/answer
 import { Answer } from '../domain/forum/enterprise/entities/Answer'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { AnswerAttachmentsRepositoryInMemory } from './answers-attachments-repository-in-memory'
+import { DomainEvents } from '@/core/events/domain-events'
 
 export class AnswersRepositoryInMemory implements AnswerRepository {
   constructor(
@@ -11,6 +12,9 @@ export class AnswersRepositoryInMemory implements AnswerRepository {
   items: Answer[] = []
   async create(answer: Answer): Promise<Answer> {
     await this.items.push(answer)
+
+    DomainEvents.dispatchEventsForAggregate(answer.id)
+
     return answer
   }
 
@@ -34,6 +38,8 @@ export class AnswersRepositoryInMemory implements AnswerRepository {
     const itemIndex = this.items.findIndex((item) => item.id === answer.id)
 
     this.items[itemIndex] = answer
+
+    DomainEvents.dispatchEventsForAggregate(answer.id)
   }
 
   async findManyByQuestionId(questionId: string, { page }: PaginationParams) {

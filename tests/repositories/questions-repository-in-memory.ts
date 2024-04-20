@@ -2,6 +2,7 @@ import { PaginationParams } from '@/core/repositories/pagination-params'
 import { QuestionsRepsitory } from '../domain/forum/application/repositories/questions-repository'
 import { Question } from '../domain/forum/enterprise/entities/Question'
 import { QuestionAttachmentRepository } from '@/domain/forum/application/repositories/question-attachments-repository'
+import { DomainEvents } from '@/core/events/domain-events'
 
 export class QuestionsRepositoryInMemory implements QuestionsRepsitory {
   constructor(
@@ -11,15 +12,15 @@ export class QuestionsRepositoryInMemory implements QuestionsRepsitory {
   items: Question[] = []
   async create(question: Question) {
     await this.items.push(question)
+    DomainEvents.dispatchEventsForAggregate(question.id)
+
     return question
   }
 
   async findBySlug(slug: string) {
     const question = await this.items.find((item) => item.slug.value === slug)
 
-    if (!question) return null
-
-    return question
+    return question ?? null
   }
 
   async delete(question: Question) {
@@ -48,6 +49,7 @@ export class QuestionsRepositoryInMemory implements QuestionsRepsitory {
 
   async save(question: Question) {
     const itemIndex = this.items.findIndex((item) => item.id === question.id)
+    DomainEvents.dispatchEventsForAggregate(question.id)
 
     this.items[itemIndex] = question
   }

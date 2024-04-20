@@ -1,6 +1,6 @@
 import { test, expect, describe, beforeEach } from 'vitest'
 import { AnswersRepositoryInMemory } from '#/repositories/answers-repository-in-memory'
-import { ChooseQuestionBestAnswerUseCase } from './choose-question-best-answer'
+import { ChosenQuestionBestAnswerUseCase } from './choose-question-best-answer'
 import { QuestionsRepositoryInMemory } from '#/repositories/questions-repository-in-memory'
 import { makeQuestion } from '#/factories/make-question'
 import { makeAnswer } from '#/factories/make-answer'
@@ -9,12 +9,12 @@ import { Answer } from '../../enterprise/entities/Answer'
 import { QuestionAttachmentsRepositoryInMemory } from '#/repositories/questions-attachments-repository-in-memory'
 import { AnswerAttachmentsRepositoryInMemory } from '#/repositories/answers-attachments-repository-in-memory'
 
-describe('Choose Question Best Answer', () => {
+describe('Chosen Question Best Answer', () => {
   let answersRepository: AnswersRepositoryInMemory
   let questionAttachmentRepository: QuestionAttachmentsRepositoryInMemory
   let answerAttachmentRepository: AnswerAttachmentsRepositoryInMemory
   let questionRepository: QuestionsRepositoryInMemory
-  let sut: ChooseQuestionBestAnswerUseCase
+  let sut: ChosenQuestionBestAnswerUseCase
   let question: Question
   let answer: Answer
 
@@ -27,7 +27,7 @@ describe('Choose Question Best Answer', () => {
     questionRepository = new QuestionsRepositoryInMemory(
       questionAttachmentRepository,
     )
-    sut = new ChooseQuestionBestAnswerUseCase(
+    sut = new ChosenQuestionBestAnswerUseCase(
       answersRepository,
       questionRepository,
     )

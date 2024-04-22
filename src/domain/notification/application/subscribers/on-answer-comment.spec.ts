@@ -11,7 +11,7 @@ import { MockInstance } from 'vitest'
 import { waitFor } from '#/utils/wait-for'
 import { AnswerCommentsRepositoryInMemory } from '#/repositories/answer-comments-repository-in-memory'
 import { makeAnswerComment } from '#/factories/make-answer-comment'
-import { OnNewAnswerComment } from './on-new-answer-comment'
+import { OnAnswerComment } from './on-answer-comment'
 
 let answerCommentsRepositoryInMemory: AnswerCommentsRepositoryInMemory
 let answersRepositoryInMemory: AnswersRepositoryInMemory
@@ -42,7 +42,7 @@ describe('On Answer Comment Created', () => {
     sendNotificationExecuteSpy = vi.spyOn(senNotificationUseCase, 'execute')
 
     // eslint-disable-next-line no-new
-    new OnNewAnswerComment(answersRepositoryInMemory, senNotificationUseCase)
+    new OnAnswerComment(answersRepositoryInMemory, senNotificationUseCase)
   })
   it('should send a notification when answer comment has created ', async () => {
     const answer = makeAnswer()

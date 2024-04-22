@@ -2,6 +2,7 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { QuestionCommentsRepsitory } from '../domain/forum/application/repositories/question-comments-repository'
 import { QuestionComment } from '../domain/forum/enterprise/entities/QuestionComment'
+import { DomainEvents } from '@/core/events/domain-events'
 
 export class QuestionCommentsRepositoryInMemory
   implements QuestionCommentsRepsitory
@@ -9,6 +10,7 @@ export class QuestionCommentsRepositoryInMemory
   items: QuestionComment[] = []
   async create(questionComment: QuestionComment) {
     await this.items.push(questionComment)
+    DomainEvents.dispatchEventsForAggregate(questionComment.id)
     return questionComment
   }
 

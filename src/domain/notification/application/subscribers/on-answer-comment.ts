@@ -4,7 +4,7 @@ import { AnswerRepository } from '@/domain/forum/application/repositories/answer
 import { AnswerCommentCreatedEvent } from '@/domain/forum/enterprise/events/answer-comment-created-event'
 import { SendNotificationUseCase } from '../useCases/send-notification'
 
-export class OnNewAnswerComment implements EventHandler {
+export class OnAnswerComment implements EventHandler {
   constructor(
     private answersRepository: AnswerRepository,
     private sendNotification: SendNotificationUseCase,

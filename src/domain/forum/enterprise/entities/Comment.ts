@@ -1,4 +1,4 @@
-import { Entity } from '@/core/entities/entity'
+import { AggregateRoot } from '@/core/entities/aggregate-root'
 import { UniqueEntityId } from '@/core/entities/uniqueEntityId'
 
 export interface CommentProps {
@@ -15,7 +15,7 @@ export interface CommentProps {
 
 export abstract class Comment<
   Props extends CommentProps,
-> extends Entity<Props> {
+> extends AggregateRoot<Props> {
   public get content(): string {
     return this.props.content
   }
